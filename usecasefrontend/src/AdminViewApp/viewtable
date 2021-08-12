@@ -1,0 +1,107 @@
+import './Adminview.css';
+
+import React, {
+  useEffect,
+  useState,
+} from 'react';
+
+import axios from 'axios';
+
+export default function AdminView(){
+
+    const [apply, setApply] = useState([]);
+
+    useEffect(() => {
+        console.log("Executed after render method=======");
+        axios.get("http://localhost:8083/getform").then(res => {
+            console.log(res);
+            setApply(res.data);
+        }).catch(e => {
+            console.error("ERR in Credentials json...");
+            console.error(e);
+        }).finally(() => {
+            console.log("loaded");
+        })
+      }, [])
+
+    return(
+
+        <div>
+        <head>
+	<meta charset="utf-8" />
+	<title>Table Style</title>
+	<meta name="viewport" content="initial-scale=1.0; maximum-scale=1.0; width=device-width;"/>
+</head>
+
+<body>
+<div class="table-title">
+<h3><center>CREDITCARD APPLICATIONS </center></h3>
+</div>
+<table class="table-fill">
+<thead>
+<tr>
+<th class="text-left">Cardholder Name</th>
+<th class="text-left">Annual Income</th>
+<th class="text-left">Occupation</th>
+<th class="text-left">CardType</th>
+<th class="text-left">Age</th>
+<th class="text-left">Address</th>
+<th class="text-left">City</th>
+<th class="text-left">Gender</th>
+<th class="text-left">Email Id</th>
+<th class="text-left">Aadhar Number</th>
+<th class="text-left">Pan number</th>
+<th class="text-left">Contact Number</th>
+</tr>
+</thead>
+<tbody class="table-hover">
+
+<tr>
+<td class="text-left">January</td>
+<td class="text-left">$ 50,000.00</td>
+<td class="text-left">$ 50,000.00</td>
+<td class="text-left">$ 50,000.00</td>
+<td class="text-left">$ 50,000.00</td>
+<td class="text-left">$ 50,000.00</td>
+</tr>
+<tr>
+<td class="text-left">February</td>
+<td class="text-left">$ 10,000.00</td>
+</tr>
+<tr>
+<td class="text-left">March</td>
+<td class="text-left">$ 85,000.00</td>
+</tr>
+<tr>
+<td class="text-left">April</td>
+<td class="text-left">$ 56,000.00</td>
+</tr>
+<tr>
+<td class="text-left">May</td>
+<td class="text-left">$ 98,000.00</td>
+</tr>
+<tr>
+<td class="text-left">May</td>
+<td class="text-left">$ 98,000.00</td>
+</tr>
+<tr>
+<td class="text-left">May</td>
+<td class="text-left">$ 98,000.00</td>
+</tr>
+<tr>
+<td class="text-left">May</td>
+<td class="text-left">$ 98,000.00</td>
+</tr>
+<tr>
+<td class="text-left">May</td>
+<td class="text-left">$ 98,000.00</td>
+</tr>
+</tbody>
+</table>
+  
+
+  </body>
+
+        </div>
+    )
+}

@@ -1,0 +1,98 @@
+import './Carddetails.css';
+
+import React, { useState } from 'react';
+
+import axios from 'axios';
+
+export default function Carddetails(){
+
+  const [carddata,setCarddata]=useState({
+   cardholdername:'',
+   cardnumber:' ',
+    expirymonth:0,
+    expirydate: 0,
+    cvv:0
+  })
+
+  const handleOnChange= (e) =>{
+    setCarddata((prev)=>{
+        return {
+            ...prev,
+            [e.target.name]:e.target.value
+        }
+    })
+    console.log(carddata);
+}
+const handleOnSubmit=()=>{
+    
+  axios.post("http://localhost:8083/api/postcards",carddata).then(res=>res.data).then((data)=>
+  {
+   
+    console.log(data);
+    console.log("data posted successfully..")
+  
+  })
+}
+
+    return (
+        <div>
+        <div class="align-center">
+  <div class="card">
+    <header>
+    <h2 class="card-title">CREDITCARD DETAILS</h2>
+    <img width="128" alt="Visa Inc. logo"  src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/128px-Visa_Inc._logo.svg.png" class="logo"/>
+    </header>
+    
+    <form action="" class="form">
+      <div class="card-number">
+      <label for="number">Card Number</label>
+      <input id="cardnumber" type="text" size="40" placeholder="1234 1234 1234 1234" value={carddata.cardnumber} onChange={handleOnChange} />
+      </div>
+      
+      <div class="card-name">
+      <label for="name">Cardholder Name</label>
+      <input id="cardholdername" type="text" size="40" value={carddata.cardholdername} onChange={handleOnChange} placeholder="Your Name"/>
+      </div>
+      
+      <div class="input-row">
+      <div class="select-date">
+      <label for="date">Expiration</label>
+      <select name="expmonth" id="expirydate" onChange={handleOnChange}>
+        <option value="00"></option>
+        <option value="01">01</option>
+        <option value="02">02</option>
+        <option value="03">03</option>
+        <option value="04">04</option>
+        <option value="05">05</option>
+        <option value="06">06</option>
+        <option value="07">07</option>
+        <option value="08">08</option>
+        <option value="09">09</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+      </select>
+      <select name="expdate" id="expirymonth" onChange={handleOnChange}>
+        <option value="0000"></option>
+        <option value="2017">2017</option>
+        <option value="2018">2018</option>
+        <option value="2019">2019</option>
+        <option value="2020">2020</option>
+        <option value="2021">2021</option>
+      </select>
+      </div>
+      
+      <div class="card-cvv" >
+      <label for="cvv">CVV</label>
+      <input id="cvv" type="text" size="5" placeholder="123" onChange={handleOnChange} value={carddata.cvv} required/>
+      </div>
+        
+      <button class="buy-button" onSubmit={handleOnSubmit}>Generate Card</button>
+      </div>
+    </form>
+    
+  </div>
+</div>
+        </div>
+    )
+}
